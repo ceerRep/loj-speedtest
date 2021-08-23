@@ -1,50 +1,61 @@
 namespace
 {
     typedef unsigned int uint;
-    const int MX = 1 << 10;
-    uint a[MX][MX], b[MX][MX];
-
-    inline uint rand()
-    {
-        static unsigned int sed = 0;
-        return (sed = (sed * 233 + 19260421)) & (MX - 1);
-    }
+    const int MX = 1 << 24;
 }
 int pipeline1()
 {
-    int i, j, k;
-    for (i = 0; i < MX; i++)
-        for (j = 0; j < MX; j++)
-            a[i][j] = rand();
-#define A(t) (b[i][k + t] += a[i][j] * a[j][k + t])
-    for (i = 0; i < MX; i++)
-        for (j = 0; j < MX; j++)
-            for (k = 0; k < MX; k++)
-                A(0);
-#undef A
-    uint s;
-    for (i = 0; i < MX; i++)
-        for (j = 0; j < MX; j++)
-            s += a[i][j];
-    return s;
+    for (int i = 0; i < MX; i++)
+    {
+        asm("add %%r8, %%r9\n\t"
+            "add %%r9, %%r10\n\t"
+            "add %%r10, %%r11\n\t"
+            "add %%r11, %%r12\n\t"
+            "add %%r12, %%r13\n\t"
+            "add %%r13, %%r14\n\t"
+            "add %%r14, %%r15\n\t"
+            "add %%r15, %%r8\n\t"
+            :
+            :
+            : "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15");
+    }
     return 0;
 }
 
 int pipeline2()
 {
-    int i, j, k;
-    for (i = 0; i < MX; i++)
-        for (j = 0; j < MX; j++)
-            a[i][j] = rand();
-#define A(t) (b[i][k + t] += a[i][j] * a[j][k + t])
-    for (i = 0; i < MX; i++)
-        for (j = 0; j < MX; j++)
-            for (k = 0; k < MX; k += 8)
-                A(0), A(1), A(2), A(3), A(4), A(5), A(6), A(7);
-#undef A
-    uint s;
-    for (i = 0; i < MX; i++)
-        for (j = 0; j < MX; j++)
-            s += a[i][j];
-    return s;
+    for (int i = 0; i < MX; i++)
+    {
+        asm("add %%r8, %%r12\n\t"
+            "add %%r9, %%r13\n\t"
+            "add %%r10, %%r14\n\t"
+            "add %%r11, %%r15\n\t"
+            "add %%r12, %%r8\n\t"
+            "add %%r13, %%r9\n\t"
+            "add %%r14, %%r10\n\t"
+            "add %%r15, %%r11\n\t"
+            :
+            :
+            : "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15");
+    }
+    return 0;
+}
+
+int pipeline3()
+{
+    for (int i = 0; i < MX; i++)
+    {
+        asm("add %%r8, %%r8\n\t"
+            "add %%r9, %%r9\n\t"
+            "add %%r10, %%r10\n\t"
+            "add %%r11, %%r11\n\t"
+            "add %%r12, %%r12\n\t"
+            "add %%r13, %%r13\n\t"
+            "add %%r14, %%r14\n\t"
+            "add %%r15, %%r15\n\t"
+            :
+            :
+            : "r8", "r9", "r10", "r11", "r12", "r13", "r14", "r15");
+    }
+    return 0;
 }

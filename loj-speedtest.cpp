@@ -13,6 +13,7 @@ int memory_cache2();
 int memory_cache3();
 int pipeline1();
 int pipeline2();
+int pipeline3();
 int stdnew();
 int stdset();
 
@@ -31,6 +32,7 @@ std::tuple<const char *, TestFunc_t> tests[] = {
     {"floattest", &floattest},
     {"pipeline1", &pipeline1},
     {"pipeline2", &pipeline2},
+    {"pipeline3", &pipeline3},
 };
 
 int main(void)
