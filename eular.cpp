@@ -3,7 +3,7 @@ namespace
     const int MX = 50000000;
     int p[MX], m[MX], pc;
 }
-int eular()
+int eular_()
 {
     for (int i = 2; i < MX; i++)
     {
@@ -17,4 +17,8 @@ int eular()
     for (int i = 1; i <= pc; i++)
         ans ^= p[i];
     return ans;
+}
+int eular()
+{
+    return eular_() + eular_() + eular_() + eular_();
 }

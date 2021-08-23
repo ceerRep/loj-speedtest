@@ -1,6 +1,6 @@
 namespace
 {
-    const int MX = 20000000;
+    const int MX = 30000000;
     int *it[MX];
 }
 int stdnew()

@@ -1,6 +1,6 @@
 namespace
 {
-    const int MX = 1 << 25;
+    const int MX = 3 << 25;
     int a[MX];
 
     inline unsigned int rand1()

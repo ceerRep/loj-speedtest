@@ -1,7 +1,7 @@
 namespace
 {
     typedef unsigned int uint;
-    const int MX = 1 << 24;
+    const int MX = 1 << 29;
 }
 
 int pipeline1()

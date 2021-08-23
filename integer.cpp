@@ -4,7 +4,7 @@ namespace
 
 #define Pc 1000000007
     int Pv = 1000000007;
-    const int MX = 100000000;
+    const int MX = 300000000;
 }
 
 int integer1()

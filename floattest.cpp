@@ -1,6 +1,6 @@
 namespace
 {
-    const int MX = 20000000;
+    const int MX = 2000000000;
 }
 
 int floattest()
